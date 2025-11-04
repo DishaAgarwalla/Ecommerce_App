@@ -1,0 +1,156 @@
+<!-- Shop Header Section -->
+<div class="shop-header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="shop-title">Shop the Best Products Online</h1>
+        <p class="shop-subtitle">Discover curated collections of premium products at unbeatable prices with fast delivery</p>
+        <div class="shop-stats">
+          <div class="stat-item">
+            <span class="stat-number">{{ products.length }}</span>
+            <span class="stat-label">Products</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">★</span>
+            <span class="stat-label">Quality</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">✓</span>
+            <span class="stat-label">Verified</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a routerLink="/shop" class="btn-primary">
+            <i class="fas fa-shopping-bag"></i>
+            Start Shopping
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="shop-hero-image">
+          <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-content">
+    <div class="loading-spinner">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <h3 class="loading-title">Loading Amazing Products</h3>
+    <p class="loading-subtitle">Please wait while we fetch the latest products for you...</p>
+    <div class="loading-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Products Grid -->
+<div *ngIf="!loading && products.length > 0" class="products-section">
+  <div class="container-fluid">
+    <!-- Filter/Sort Bar -->
+    <div class="products-controls">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 class="products-title">All Products ({{ products.length }})</h2>
+        </div>
+        <div class="col-md-6 text-end">
+          <div class="sort-controls">
+            <span class="sort-label">Sort by:</span>
+            <select class="form-select sort-select">
+              <option>Featured</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid">
+      <div *ngFor="let p of products" class="product-card-wrapper">
+        <div class="product-card">
+          <!-- Product Image -->
+          <div class="product-image-container">
+            <img [src]="p.images?.[0] || 'assets/no-image.png'" class="product-image" alt="{{p.name}}" />
+            <div class="product-overlay">
+              <button class="btn-quick-view" [routerLink]="['/product', p.id]">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="product-badge">
+              <span class="badge-new">New</span>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h3 class="product-title">{{p.name}}</h3>
+            <p class="product-description">{{p.description}}</p>
+            <div class="product-price">
+              <span class="price-current">₹ {{p.price}}</span>
+              <span class="price-original">₹ {{p.price + 200}}</span>
+              <span class="price-discount">15% OFF</span>
+            </div>
+            <div class="product-rating">
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="rating-count">(4.5)</span>
+            </div>
+          </div>
+
+          <!-- Product Actions -->
+          <div class="product-actions">
+            <button class="btn-add-cart" (click)="addToCart(p)">
+              <i class="fas fa-cart-plus"></i>
+              Add to Cart
+            </button>
+            <button class="btn-wishlist">
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Empty State -->
+<div *ngIf="!loading && products.length === 0" class="empty-state">
+  <div class="empty-content">
+    <div class="empty-icon">
+      <i class="fas fa-shopping-bag"></i>
+    </div>
+    <h2 class="empty-title">No Products Available</h2>
+    <p class="empty-subtitle">We're working hard to bring you amazing products. Check back soon!</p>
+    <div class="empty-note">
+      <small class="text-muted">
+        <i class="fas fa-info-circle"></i>
+        Make sure your backend server is running on http://localhost:8080
+      </small>
+    </div>
+    <button class="btn-refresh" (click)="location.reload()">
+      <i class="fas fa-sync-alt"></i>
+      Refresh Page
+    </button>
+  </div>
+</div>

@@ -1,0 +1,173 @@
+<!-- Profile Header -->
+<div class="profile-header" *ngIf="user; else notLoggedIn">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="profile-title">Welcome back, {{ user.name }}!</h1>
+        <p class="profile-subtitle">Manage your account, view your orders, and track your shopping journey</p>
+        <div class="profile-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">{{ orders.length }}</span>
+              <span class="stat-label">Total Orders</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">{{ getDeliveredCount() }}</span>
+              <span class="stat-label">Delivered</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">{{ getProcessingCount() }}</span>
+              <span class="stat-label">In Progress</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a routerLink="/shop" class="btn-primary">
+            <i class="fas fa-shopping-bag"></i>
+            Continue Shopping
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="profile-illustration">
+          <div class="illustration-icon">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="floating-elements">
+            <div class="element element-1">👤</div>
+            <div class="element element-2">📦</div>
+            <div class="element element-3">⭐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Content -->
+<div class="profile-content" *ngIf="user">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="profile-details-card">
+          <h3 class="section-title">
+            <i class="fas fa-user"></i>
+            Account Information
+          </h3>
+          <div class="user-info">
+            <div class="info-item">
+              <span class="label">Name:</span>
+              <span class="value">{{ user.name }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ user.email }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="orders-section">
+          <h3 class="section-title">
+            <i class="fas fa-receipt"></i>
+            Your Orders
+          </h3>
+
+          <div *ngIf="orders.length; else noOrders" class="orders-list">
+            <div *ngFor="let o of orders" class="order-item">
+              <div class="order-header">
+                <div class="order-info">
+                  <span class="order-id">Order #{{ o.id }}</span>
+                  <span class="order-status"
+                        [ngClass]="{
+                          'status-delivered': o.status === 'Delivered',
+                          'status-processing': o.status === 'Processing',
+                          'status-pending': o.status === 'Pending',
+                          'status-cancelled': o.status === 'Cancelled'
+                        }">
+                    {{ o.status || 'Pending' }}
+                  </span>
+                </div>
+                <div class="order-amount">₹ {{ o.total }}</div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noOrders>
+            <div class="no-orders">
+              <div class="empty-icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <h4>No Orders Yet</h4>
+              <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+              <a routerLink="/shop" class="btn-start-shopping">
+                <i class="fas fa-shopping-bag"></i>
+                Start Shopping
+              </a>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="profile-actions-card">
+          <h4 class="actions-title">Quick Actions</h4>
+          <div class="action-buttons">
+            <a routerLink="/cart" class="action-btn">
+              <i class="fas fa-shopping-cart"></i>
+              View Cart
+            </a>
+            <a routerLink="/orders" class="action-btn">
+              <i class="fas fa-list"></i>
+              All Orders
+            </a>
+            <button class="action-btn logout-btn" (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notLoggedIn>
+  <div class="login-prompt">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="login-card">
+            <div class="login-icon">
+              <i class="fas fa-lock"></i>
+            </div>
+            <h2>Access Your Profile</h2>
+            <p>You must log in to view your profile and manage your account.</p>
+            <div class="login-actions">
+              <a routerLink="/login" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i>
+                Log In
+              </a>
+              <a routerLink="/register" class="btn-register">
+                <i class="fas fa-user-plus"></i>
+                Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

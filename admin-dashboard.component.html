@@ -1,0 +1,11 @@
+<h3>Admin Dashboard</h3>
+<p><a routerLink="/admin/add">Add Product (not implemented)</a></p>
+<table class="table">
+  <thead><tr><th>ID</th><th>Name</th><th>Price</th><th></th></tr></thead>
+  <tbody>
+    <tr *ngFor="let p of products">
+      <td>{{p.id}}</td><td>{{p.name}}</td><td>₹ {{p.price}}</td>
+      <td><button class="btn btn-sm btn-danger" (click)="deleteProduct(p.id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,20 @@
+<div class="search-results-container">
+  <h3 *ngIf="!loading">Search results for "{{ query }}"</h3>
+
+  <div *ngIf="loading" class="text-center py-4">
+    <p>Loading results...</p>
+  </div>
+
+  <div *ngIf="!loading && products.length === 0" class="text-center py-4">
+    <p>No products found.</p>
+  </div>
+
+  <div *ngIf="!loading && products.length > 0" class="product-grid">
+    <div *ngFor="let p of products" class="product-card">
+      <img [src]="p.images?.[0] || p.imageUrl || 'assets/no-image.png'" alt="{{p.name}}" />
+      <h5>{{ p.name }}</h5>
+      <p>₹ {{ p.price }}</p>
+      <a [routerLink]="['/product', p.id]" class="btn btn-sm btn-outline-primary">View</a>
+    </div>
+  </div>
+</div>

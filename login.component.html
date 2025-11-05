@@ -1,0 +1,36 @@
+<div class="card p-4 mx-auto mt-5 shadow-sm" style="max-width:400px;">
+  <h4 class="text-center mb-3">Login</h4>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="mb-3">
+    <input
+      class="form-control"
+      placeholder="Email"
+      [(ngModel)]="email"
+      type="email"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      [(ngModel)]="password"
+      required
+    />
+  </div>
+
+  <button class="btn btn-primary w-100 mb-2" (click)="login()" [disabled]="loading">
+    {{ loading ? 'Logging in...' : 'Login' }}
+  </button>
+
+  <div class="text-center">
+    <p class="mb-0">
+      Don’t have an account?
+      <a routerLink="/register">Register here</a>
+    </p>
+  </div>
+</div>

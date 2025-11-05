@@ -1,0 +1,9 @@
+.card {
+  border-radius: 12px;
+}
+button {
+  border-radius: 8px;
+}
+.alert {
+  font-size: 0.9rem;
+}

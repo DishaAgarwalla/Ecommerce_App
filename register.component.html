@@ -1,0 +1,111 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h2 class="text-center mb-4">Create Your Account</h2>
+      <p class="text-center text-muted">Join MyStore and start your shopping journey</p>
+    </div>
+
+    <form class="register-form">
+      <!-- Basic Information -->
+      <div class="form-section">
+        <h5 class="section-title">Basic Information</h5>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="name" class="form-label">Full Name *</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your full name" [(ngModel)]="name" name="name" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email Address *</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" [(ngModel)]="email" name="email" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Password *</label>
+            <input type="password" class="form-control" id="password" placeholder="Create a password" [(ngModel)]="password" name="password" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password *</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Information -->
+      <div class="form-section">
+        <h5 class="section-title">Personal Information</h5>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" [(ngModel)]="phone" name="phone">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="dateOfBirth" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="gender" class="form-label">Gender</label>
+          <select class="form-select" id="gender" [(ngModel)]="gender" name="gender">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Address Information -->
+      <div class="form-section">
+        <h5 class="section-title">Address Information</h5>
+        <div class="mb-3">
+          <label for="address" class="form-label">Street Address</label>
+          <input type="text" class="form-control" id="address" placeholder="Enter your street address" [(ngModel)]="address" name="address">
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" placeholder="Enter your city" [(ngModel)]="city" name="city">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" placeholder="Enter your state" [(ngModel)]="state" name="state">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="zipCode" class="form-label">ZIP Code</label>
+            <input type="text" class="form-control" id="zipCode" placeholder="Enter ZIP code" [(ngModel)]="zipCode" name="zipCode">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="country" class="form-label">Country</label>
+            <select class="form-select" id="country" [(ngModel)]="country" name="country">
+              <option value="India">India</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Canada">Canada</option>
+              <option value="Australia">Australia</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary btn-lg w-100" (click)="register()">
+          <i class="fas fa-user-plus me-2"></i>Create Account
+        </button>
+      </div>
+
+      <!-- Login Link -->
+      <div class="text-center mt-3">
+        <span class="text-muted">Already have an account? </span>
+        <a routerLink="/auth/login" class="text-decoration-none">Sign In</a>
+      </div>
+    </form>
+  </div>
+</div>

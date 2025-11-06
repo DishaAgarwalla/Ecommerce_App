@@ -1,0 +1,113 @@
+/* ===== CART PAGE CONTAINER ===== */
+.container {
+  max-width: 1000px;
+}
+
+h2 {
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===== TABLE STYLING ===== */
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.table tbody tr {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.table tbody tr td {
+  vertical-align: middle;
+  padding: 12px 15px;
+}
+
+.table img {
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  font-size: 0.9rem;
+  border-radius: 20px;
+  padding: 6px 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* ===== TOTAL SECTION ===== */
+.text-end h5 {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+/* ===== EMPTY STATE ===== */
+.text-center {
+  margin-top: 50px;
+}
+
+.text-center p {
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.text-center a.btn {
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .table-responsive {
+    border: none;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border-radius: 12px;
+  }
+
+  .table tbody tr td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+  }
+
+  .table tbody tr td img {
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -1,0 +1,66 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-center">🛒 Your Cart</h2>
+
+  <!-- If cart is empty -->
+  <ng-template #empty>
+    <div class="text-center">
+      <p class="text-muted mb-3">Your cart is empty.</p>
+      <a routerLink="/shop" class="btn btn-outline-primary">Shop Now</a>
+    </div>
+  </ng-template>
+
+  <!-- Cart table -->
+  <div class="table-responsive" *ngIf="items.length; else empty">
+    <table class="table align-middle text-center shadow-sm">
+      <thead class="table-light">
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let it of items">
+          <td class="text-start">
+            <img
+              [src]="it.product.images?.[0] || it.product.imageUrl || 'assets/no-image.png'"
+              width="60"
+              class="me-2 rounded"
+            />
+            {{ it.product.name }}
+          </td>
+
+          <td>₹{{ it.product.price }}</td>
+
+          <td>
+            <input
+              type="number"
+              class="form-control text-center"
+              style="width: 80px;"
+              [value]="it.quantity"
+              min="1"
+              (change)="update(it, $event.target.value)"
+            />
+          </td>
+
+          <td>₹{{ it.product.price * it.quantity }}</td>
+
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="remove(it)">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-end mt-3">
+      <h5>Subtotal: ₹{{ subtotal }}</h5>
+      <button class="btn btn-primary me-2" (click)="checkout()">Proceed to Checkout</button>
+      <button class="btn btn-outline-danger" (click)="clearCart()">Clear Cart</button>
+    </div>
+  </div>
+</div>

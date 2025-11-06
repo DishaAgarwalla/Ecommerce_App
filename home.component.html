@@ -1,0 +1,119 @@
+<!-- Hero Section -->
+<section class="hero-section py-5" style="margin-top: 80px;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold text-white mb-4">Welcome to MyStore</h1>
+        <p class="lead text-white mb-4">Discover amazing products with the best deals and lightning-fast delivery. Shop with confidence and enjoy premium quality at unbeatable prices.</p>
+        <div class="d-flex gap-3">
+          <a routerLink="/shop" class="btn btn-primary btn-lg">Shop Now</a>
+          <a routerLink="/cart" class="btn btn-outline-light btn-lg">View Cart</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-image text-center">
+          <i class="fas fa-shopping-cart fa-10x text-white opacity-75"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5 bg-white">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-12">
+        <h2 class="fw-bold">Why Choose MyStore?</h2>
+        <p class="text-muted">Experience shopping like never before with our premium features</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card text-center p-4 h-100">
+          <i class="fas fa-truck fa-3x text-primary mb-3"></i>
+          <h4>Fast Delivery</h4>
+          <p class="text-muted">Get your orders delivered within 24-48 hours with our express shipping service.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card text-center p-4 h-100">
+          <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+          <h4>Secure Payment</h4>
+          <p class="text-muted">Your payments are protected with industry-leading security and encryption.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card text-center p-4 h-100">
+          <i class="fas fa-headset fa-3x text-info mb-3"></i>
+          <h4>24/7 Support</h4>
+          <p class="text-muted">Our customer support team is always ready to help you with any questions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products py-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="fw-bold text-white mb-3">Featured Products</h2>
+        <p class="text-white">Check out our handpicked selection of top-rated products</p>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="row">
+      <div class="col-12 text-center">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-white mt-2">Loading featured products...</p>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && featured.length > 0" class="row">
+      <div *ngFor="let p of featured" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-lg border-0">
+          <div class="card-img-container">
+            <img [src]="p.images?.[0] || p.imageUrl || 'assets/no-image.png'" class="card-img-top" alt="{{p.name}}" />
+            <div class="card-overlay">
+              <button class="btn btn-primary btn-sm" (click)="addToCart(p)">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title fw-bold">{{p.name}}</h6>
+            <p class="card-text text-muted small">{{p.description | slice:0:60}}...</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-primary">₹ {{p.price}}</span>
+              <a [routerLink]="['/product', p.id]" class="btn btn-outline-primary btn-sm">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && featured.length === 0" class="row">
+      <div class="col-12 text-center">
+        <div class="mt-4">
+          <h4 class="text-white">No featured products available</h4>
+          <p class="text-white">Check back later for our featured selection!</p>
+          <a routerLink="/shop" class="btn btn-primary">Browse All Products</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section py-5 bg-white">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Ready to Start Shopping?</h2>
+    <p class="text-muted mb-4">Join thousands of satisfied customers and discover your next favorite product today.</p>
+    <div class="d-flex justify-content-center gap-3">
+      <a routerLink="/register" class="btn btn-success btn-lg">Create Account</a>
+      <a routerLink="/shop" class="btn btn-outline-primary btn-lg">Continue Shopping</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">MyStore</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shop" routerLinkActive="active"
+            >Shop</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/orders" routerLinkActive="active"
+            >Orders</a
+          >
+        </li>
+      </ul>
+
+      <!-- 🔹 Search Bar -->
+      <form class="d-flex" (ngSubmit)="onSearch()">
+        <input
+          class="form-control me-2"
+          type="search"
+          [(ngModel)]="searchTerm"
+          name="search"
+          placeholder="Search products..."
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+      <!-- 🔹 Cart + Account -->
+      <ul class="navbar-nav ms-3">
+        <li class="nav-item position-relative">
+          <a class="nav-link" routerLink="/cart">
+            🛒 Cart
+            <span
+              *ngIf="cartCount > 0"
+              class="badge bg-danger position-absolute top-0 start-100 translate-middle"
+            >
+              {{ cartCount }}
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown ms-3">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="userDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            👤 {{ isLoggedIn ? (currentUser?.name || 'Account') : 'Account' }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li *ngIf="isLoggedIn">
+              <a class="dropdown-item" routerLink="/profile">Profile</a>
+            </li>
+            <li *ngIf="isLoggedIn && currentUser?.role === 'admin'">
+              <a class="dropdown-item" routerLink="/admin">Admin Dashboard</a>
+            </li>
+            <li *ngIf="!isLoggedIn">
+              <a class="dropdown-item" routerLink="/login">Login</a>
+            </li>
+            <li *ngIf="!isLoggedIn">
+              <a class="dropdown-item" routerLink="/register">Register</a>
+            </li>
+            <li *ngIf="isLoggedIn">
+              <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

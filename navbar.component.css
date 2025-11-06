@@ -1,0 +1,121 @@
+/* ====== NAVBAR BASE ====== */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+  padding: 0.75rem 1rem;
+  z-index: 1050;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: #007bff !important;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #0056b3 !important;
+}
+
+/* ====== NAV LINKS ====== */
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  margin: 0 5px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #007bff !important;
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  color: #007bff !important;
+  font-weight: 600;
+  border-bottom: 2px solid #007bff;
+}
+
+/* ====== SEARCH BAR ====== */
+form.d-flex {
+  align-items: center;
+}
+
+.form-control {
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.95rem;
+}
+
+.btn-outline-success {
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-success:hover {
+  background-color: #198754;
+  color: #fff;
+}
+
+/* ====== CART BADGE ====== */
+.nav-link.position-relative {
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 4px 6px;
+  border-radius: 50%;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ====== DROPDOWN ====== */
+.dropdown-menu {
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.dropdown-item {
+  font-size: 0.95rem;
+  padding: 10px 15px;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 991px) {
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.95);
+    border-radius: 8px;
+    padding: 10px 0;
+  }
+
+  .dropdown-menu {
+    text-align: center;
+  }
+
+  .nav-link {
+    padding: 8px 0;
+  }
+}
+
+/* ====== FIXED TOP SPACING ====== */
+body {
+  padding-top: 70px; /* Ensures content is not hidden behind navbar */
+}

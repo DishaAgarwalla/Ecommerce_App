@@ -1,0 +1,224 @@
+<!-- Orders Header -->
+<div class="orders-header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="orders-title">Track Your Orders Effortlessly</h1>
+        <p class="orders-subtitle">Monitor your purchases, view order history, and manage deliveries all in one place</p>
+        <div class="orders-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-shopping-bag"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">{{ orders.length }}</span>
+              <span class="stat-label">Total Orders</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">{{ getDeliveredCount() }}</span>
+              <span class="stat-label">Delivered</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">{{ getProcessingCount() }}</span>
+              <span class="stat-label">In Progress</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a routerLink="/shop" class="btn-primary">
+            <i class="fas fa-plus"></i>
+            Place New Order
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="orders-illustration">
+          <div class="illustration-icon">
+            <i class="fas fa-receipt"></i>
+          </div>
+          <div class="floating-elements">
+            <div class="element element-1">📦</div>
+            <div class="element element-2">🚚</div>
+            <div class="element element-3">✅</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Orders Content -->
+<div class="orders-content">
+  <div class="container-fluid">
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-section">
+      <div class="loading-card">
+        <div class="loading-spinner">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <h3 class="loading-title">Loading Your Orders</h3>
+        <p class="loading-subtitle">Please wait while we fetch your order history...</p>
+        <div class="loading-progress">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && orders.length === 0" class="empty-orders">
+      <div class="empty-card">
+        <div class="empty-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2 class="empty-title">No Orders Yet</h2>
+        <p class="empty-subtitle">You haven't placed any orders yet. Start shopping to see your orders here!</p>
+        <div class="empty-actions">
+          <a routerLink="/shop" class="btn-start-shopping">
+            <i class="fas fa-shopping-bag"></i>
+            Start Shopping
+          </a>
+          <a routerLink="/profile" class="btn-view-profile">
+            <i class="fas fa-user"></i>
+            View Profile
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders List -->
+    <div *ngIf="!loading && orders.length > 0" class="orders-list">
+
+      <!-- Filters and Search -->
+      <div class="orders-controls">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h2 class="orders-count">Your Orders ({{ orders.length }})</h2>
+          </div>
+          <div class="col-md-6">
+            <div class="controls-group">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search orders..." class="search-input">
+              </div>
+              <select class="filter-select">
+                <option>All Orders</option>
+                <option>Delivered</option>
+                <option>Processing</option>
+                <option>Pending</option>
+                <option>Cancelled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Grid -->
+      <div class="orders-grid">
+        <div *ngFor="let order of orders; index as i" class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <div class="order-id">
+                <span class="label">Order ID:</span>
+                <span class="value">#{{ order.id }}</span>
+              </div>
+              <div class="order-date">
+                <i class="fas fa-calendar-alt"></i>
+                {{ order.date | date:'mediumDate' }}
+              </div>
+            </div>
+            <div class="order-status">
+              <span class="status-badge"
+                    [ngClass]="{
+                      'status-delivered': order.status === 'Delivered',
+                      'status-processing': order.status === 'Processing',
+                      'status-pending': order.status === 'Pending',
+                      'status-cancelled': order.status === 'Cancelled'
+                    }">
+                <i class="fas"
+                   [ngClass]="{
+                     'fa-check-circle': order.status === 'Delivered',
+                     'fa-clock': order.status === 'Processing',
+                     'fa-hourglass-half': order.status === 'Pending',
+                     'fa-times-circle': order.status === 'Cancelled'
+                   }"></i>
+                {{ order.status || 'Pending' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="order-body">
+            <div class="order-summary">
+              <div class="total-amount">
+                <span class="label">Total Amount:</span>
+                <span class="amount">₹ {{ order.total }}</span>
+              </div>
+              <div class="order-items">
+                <span class="label">Items:</span>
+                <span class="count">{{ order.items?.length || 1 }} item(s)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-footer">
+            <div class="order-actions">
+              <button class="btn-view-details" (click)="viewOrder(order.id)">
+                <i class="fas fa-eye"></i>
+                View Details
+              </button>
+              <button class="btn-reorder" *ngIf="order.status === 'Delivered'">
+                <i class="fas fa-redo"></i>
+                Reorder
+              </button>
+              <button class="btn-track" *ngIf="order.status === 'Processing'">
+                <i class="fas fa-map-marker-alt"></i>
+                Track Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-section" *ngIf="orders.length > 10">
+        <nav aria-label="Orders pagination">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">
+                <i class="fas fa-chevron-left"></i>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

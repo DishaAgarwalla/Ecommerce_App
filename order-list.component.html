@@ -1,0 +1,48 @@
+<div class="order-list-container">
+  <h2>Your Orders</h2>
+
+  <!-- 🔎 Filters Section -->
+  <div class="filters">
+    <input
+      type="text"
+      placeholder="Search by Order ID"
+      [(ngModel)]="searchOrderId"
+      (input)="filterOrders()"
+    />
+
+    <input type="date" [(ngModel)]="startDate" (change)="filterOrders()" />
+    <input type="date" [(ngModel)]="endDate" (change)="filterOrders()" />
+
+    <button (click)="resetFilters()">Reset</button>
+  </div>
+
+  <div *ngIf="filteredOrders.length === 0" class="empty">
+    <p>No orders found.</p>
+  </div>
+
+  <table *ngIf="filteredOrders.length > 0" class="order-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let order of filteredOrders; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ order.id }}</td>
+        <td>{{ order.createdAt | date: 'medium' }}</td>
+        <td>₹{{ order.total | number: '1.2-2' }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+          <button (click)="viewOrderDetails(order.id)">View Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

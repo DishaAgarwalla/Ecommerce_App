@@ -1,0 +1,48 @@
+<div class="row p-4">
+  <!-- LEFT: Address & Payment -->
+  <div class="col-md-6">
+    <h4>Delivery Address</h4>
+    <div class="mb-2">
+      <input class="form-control" [(ngModel)]="address.fullName" placeholder="Full Name" />
+    </div>
+    <div class="mb-2">
+      <input class="form-control" [(ngModel)]="address.address" placeholder="Address" />
+    </div>
+    <div class="mb-2">
+      <input class="form-control" [(ngModel)]="address.city" placeholder="City" />
+    </div>
+    <div class="mb-2">
+      <input class="form-control" [(ngModel)]="address.postalCode" placeholder="Postal Code" />
+    </div>
+    <div class="mb-2">
+      <input class="form-control" [(ngModel)]="address.country" placeholder="Country" />
+    </div>
+    <div class="mb-3">
+      <input class="form-control" [(ngModel)]="address.phone" placeholder="Phone" />
+    </div>
+
+    <h5>Payment</h5>
+    <select class="form-select mb-3" [(ngModel)]="paymentMethod">
+      <option value="COD">Cash on Delivery</option>
+      <option value="ONLINE">Online Payment</option>
+    </select>
+
+    <button class="btn btn-success w-100" (click)="placeOrder()">Place Order</button>
+  </div>
+
+  <!-- RIGHT: Order Summary -->
+  <div class="col-md-6">
+    <h4>Order Summary</h4>
+    <ul class="list-group mb-3">
+      <li *ngFor="let it of items" class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ it.product.name }}</strong><br />
+          <small>Qty: {{ it.quantity }}</small>
+        </div>
+        <span>₹{{ it.product.price * it.quantity }}</span>
+      </li>
+    </ul>
+
+    <h5 class="text-end">Total: ₹{{ total }}</h5>
+  </div>
+</div>
